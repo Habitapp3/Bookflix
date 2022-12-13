@@ -72,8 +72,8 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-4 my-2">
-      <div class="card shadow" style="width: 18rem">
+    <div class="col-md-3 col-sm-4 my-2">
+      <div class="card shadow">
         {% if libro[4] == "Terror" %}
         <span
           class="badge bg-primary rounded-bottom position-absolute top-0 start-0 ms-1 mt-1"
@@ -98,7 +98,7 @@
         <img src="{{libro[6]}}" class="card-img-top" alt="{{libro[1]}}" />
       </div>
     </div>
-    <div class="col-8 my-2">
+    <div class="col-md-9 col-sm-8 my-2">
       <div class="row">
         <div class="col-12">
           <div class="card">
@@ -120,7 +120,7 @@
         </div>
       </div>
       <div class="row mt-3">
-        <div class="col-6">
+        <div class="col-md-6 col-sm-12">
           <a
             href="#"
             class="text-decoration-none"
@@ -134,15 +134,15 @@
             </div>
           </a>
         </div>
-        <div class="col-6">
+        <div class="col-md-6 col-sm-12">
           <div class="alert shadow d-flex justify-content-around">
             <button
               onclick="window.location='/edit/{{libro[0]}}';"
-              class="btn btn-success shadow"
+              class="btn btn-success shadow me-1"
             >
               Editar 🖊
             </button>
-            <button id="borrarLibro" class="btn btn-danger shadow">
+            <button id="borrarLibro" class="btn btn-danger shadow ms-1">
               Borrar 🗑
             </button>
           </div>

@@ -3,7 +3,7 @@
 <div class="container">
   <div class="row">
     <div class="col-12">
-      <div class="alert alert-dismissible alert-dark">
+      <div class="alert alert-dismissible alert-dark shadow-md">
         <button
           type="button"
           class="btn-close"
@@ -15,7 +15,14 @@
             >🎁</span
           >
         </h3>
-        <p class="mb-0">
+        <img
+          src="{{recomendado[6]}}"
+          alt=""
+          class="img-responsive"
+          width="50"
+          height="80"
+        />
+        <p class="ms-2 d-inline">
           <strong
             ><span class="fs-4 text-dark"
               ><a class="text-dark" href="/view/{{recomendado[0]}}"
@@ -31,7 +38,7 @@
   <div class="row">
     {% for libro in libros %}
 
-    <div class="col-4 my-2 d-flex justify-content-center">
+    <div class="col-md-4 col-sm-6 my-2 d-flex justify-content-center">
       <div class="card shadow" style="width: 18rem">
         {% if libro[4] == "Terror" %}
         <span
