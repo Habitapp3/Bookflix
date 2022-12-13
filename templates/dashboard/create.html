@@ -1,0 +1,111 @@
+{% include 'dashboard/header.html' %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-6 offset-3">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+          <li class="breadcrumb-item active" aria-current="page">
+            Formulario de subida
+          </li>
+        </ol>
+      </nav>
+
+      <div class="alert alert-secondary">
+        <span class="fs-5"
+          >Complete los siguientes campos con los datos del libro que desea
+          subir</span
+        >
+      </div>
+
+      <form method="post" action="/store" enctype="multipart/form-data">
+        <label for="titulo" class="form-label">Título del libro</label>
+        <input
+          name="titulo"
+          type="text"
+          id="titulo"
+          class="form-control mb-3"
+          aria-describedby="title"
+        />
+
+        <label for="descripcion" class="form-label"
+          >Descripción del libro</label
+        >
+        <textarea
+          name="descripcion"
+          id="descripcion"
+          class="form-control mb-3"
+          aria-describedby="description"
+        ></textarea>
+
+        <label for="fecha" class="form-label">Fecha de publicación</label>
+        <input
+          name="fecha_publicacion"
+          type="text"
+          id="fecha"
+          class="form-control mb-3"
+          aria-describedby="date"
+          placeholder="Ej. 01 de Enero de 2022"
+        />
+
+        <label for="categoria" class="form-label">Categoría del libro</label>
+        <select
+          name="categoria"
+          id="categoria"
+          class="form-select mb-3"
+          aria-describedby="category"
+        >
+          <option value="Acción">Acción</option>
+          <option value="Drama">Drama</option>
+          <option value="Fantasía">Fantasía</option>
+          <option value="Terror">Terror</option>
+        </select>
+
+        <label for="autor" class="form-label">Autor del libro</label>
+        <input
+          name="autor"
+          type="text"
+          id="autor"
+          class="form-control mb-3"
+          aria-describedby="author"
+        />
+
+        <label for="imagen" class="form-label"
+          >Link a la imagen de portada</label
+        >
+        <input
+          name="imagen"
+          type="text"
+          id="imagen"
+          class="form-control mb-3"
+          aria-describedby="thumbnail"
+          placeholder="Ej. https://imgur.com/link.jpg"
+        />
+
+        <label for="pdf" class="form-label">Link al PDF</label>
+        <input
+          name="pdf"
+          type="text"
+          id="pdf"
+          class="form-control mb-3"
+          aria-describedby="title"
+          placeholder="Ej. https://archive.com/book.pdf"
+        />
+
+        <input type="submit" class="btn btn-primary" value="Subir libro" />
+        {% with messages = get_flashed_messages() %} {% if messages %}
+        <hr />
+        <div class="alert alert-primary mt-2" role="alert">
+          <h5 class="text-dark">Hay errores en el formulario</h5>
+          {% for message in messages %}
+          <span class="fw-bold text-dark">❗ {{ message }}</span><br />
+          {% endfor %}
+        </div>
+        {% endif %} {% endwith %}
+      </form>
+    </div>
+  </div>
+</div>
+
+{% include 'dashboard/footer.html' %}

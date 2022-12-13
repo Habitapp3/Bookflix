@@ -1,0 +1,72 @@
+{% include 'dashboard/header.html' %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="alert alert-dismissible alert-dark">
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+        ></button>
+        <h3 class="alert-heading">
+          Selección sorpresa
+          <span style="display: inline-block; transform: rotate(10deg)"
+            >🎁</span
+          >
+        </h3>
+        <p class="mb-0">
+          <strong
+            ><span class="fs-4 text-dark"
+              ><a class="text-dark" href="/view/{{recomendado[0]}}"
+                >{{recomendado[1]}}</a
+              ></span
+            ></strong
+          >
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    {% for libro in libros %}
+
+    <div class="col-4 my-2 d-flex justify-content-center">
+      <div class="card shadow" style="width: 18rem">
+        {% if libro[4] == "Terror" %}
+        <span
+          class="badge bg-primary rounded-bottom position-absolute top-0 start-0 ms-1 mt-1"
+          >{{libro[4]}}</span
+        >
+        {% endif %} {% if libro[4] == "Fantasía" %}
+        <span
+          class="badge bg-info rounded-bottom position-absolute top-0 start-0 ms-1 mt-1"
+          >{{libro[4]}}</span
+        >
+        {% endif %} {% if libro[4] == "Drama" %}
+        <span
+          class="badge bg-danger rounded-bottom position-absolute top-0 start-0 ms-1 mt-1"
+          >{{libro[4]}}</span
+        >
+        {% endif %} {% if libro[4] == "Acción" %}
+        <span
+          class="badge bg-success rounded-bottom position-absolute top-0 start-0 ms-1 mt-1"
+          >{{libro[4]}}</span
+        >
+        {% endif %}
+        <a href="/view/{{libro[0]}}">
+          <img src="{{libro[6]}}" class="card-img-top" alt="{{libro[1]}}" />
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="fixed-bottom ms-1 mb-1">
+  <a href="{{url_for('create')}}" class="btn btn-light btn-sm fw-bold"
+    >Subir libro 📚</a
+  >
+</div>
+
+{% include 'dashboard/footer.html' %}

@@ -1,0 +1,175 @@
+{% include 'dashboard/header.html' %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Detalles</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+</div>
+
+{% if libro is none %}
+
+<style>
+  #error {
+    height: 65vh;
+  }
+</style>
+
+<div id="error" class="container">
+  <div class="row">
+    <div class="col-12 my-2 text-center">
+      <h1>No se encuentra el libro solicitado.</h1>
+      <a href="/">Ver otros libros</a>
+    </div>
+  </div>
+</div>
+
+{% else %}
+
+<style>
+  #frameBook {
+    width: 100%;
+    height: 100%;
+  }
+  .modal-dialog,
+  .modal-content {
+    height: 95%;
+  }
+</style>
+
+<div
+  class="modal fade"
+  id="readBook"
+  tabindex="-1"
+  aria-labelledby="readBookLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="readBookLabel">
+          {{libro[1]}} - {{libro[5]}}
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Cerrar"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <iframe id="frameBook" src="{{libro[7]}}"></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-4 my-2">
+      <div class="card shadow" style="width: 18rem">
+        {% if libro[4] == "Terror" %}
+        <span
+          class="badge bg-primary rounded-bottom position-absolute top-0 start-0 ms-1 mt-1"
+          >{{libro[4]}}</span
+        >
+        {% endif %} {% if libro[4] == "Fantasía" %}
+        <span
+          class="badge bg-info rounded-bottom position-absolute top-0 start-0 ms-1 mt-1"
+          >{{libro[4]}}</span
+        >
+        {% endif %} {% if libro[4] == "Drama" %}
+        <span
+          class="badge bg-danger rounded-bottom position-absolute top-0 start-0 ms-1 mt-1"
+          >{{libro[4]}}</span
+        >
+        {% endif %} {% if libro[4] == "Acción" %}
+        <span
+          class="badge bg-success rounded-bottom position-absolute top-0 start-0 ms-1 mt-1"
+          >{{libro[4]}}</span
+        >
+        {% endif %}
+        <img src="{{libro[6]}}" class="card-img-top" alt="{{libro[1]}}" />
+      </div>
+    </div>
+    <div class="col-8 my-2">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body rounded-1 bg-dark shadow">
+              <h2>{{libro[1]}}</h2>
+              <p class="text-white">{{libro[2]}}...</p>
+              <hr />
+              <div class="d-flex justify-content-between">
+                <p class="fw-bold">
+                  Publicación del libro:
+                  <span class="text-primary">{{libro[3]}}</span>
+                </p>
+                <p class="fw-bold">
+                  Autor: <span class="text-info">{{libro[5]}}</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-6">
+          <a
+            href="#"
+            class="text-decoration-none"
+            data-bs-toggle="modal"
+            data-bs-target="#readBook"
+          >
+            <div class="card bg-primary">
+              <div class="card-body">
+                <h2 class="card-title text-center">Leer libro</h2>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-6">
+          <div class="alert shadow d-flex justify-content-around">
+            <button
+              onclick="window.location='/edit/{{libro[0]}}';"
+              class="btn btn-success shadow"
+            >
+              Editar 🖊
+            </button>
+            <button id="borrarLibro" class="btn btn-danger shadow">
+              Borrar 🗑
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Se usó la librería SweetAlert de javascript (Librería de alertas)
+  let borrarLibro = document.querySelector("#borrarLibro");
+  borrarLibro.addEventListener("click", function () {
+    swal({
+      title: "Seguro que desea borrar este libro?",
+      text: "Una vez borrado, el libro no podrá ser recuperado",
+      icon: "error",
+      buttons: true,
+      dangerMode: true,
+      buttons: ["Cancelar", "Borrar"],
+    }).then((willDelete) => {
+      // Si se presiona el "Borrar"...
+      if (willDelete) {
+        location.href = "/destroy/{{libro[0]}}";
+      }
+    });
+  });
+</script>
+
+{% endif %} {% include 'dashboard/footer.html' %}
