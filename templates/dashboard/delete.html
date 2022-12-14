@@ -1,0 +1,31 @@
+{% include 'dashboard/header.html' %}
+
+<style>
+  #error {
+    height: 65vh;
+  }
+</style>
+
+<div id="error" class="container">
+  <div class="row">
+    <div class="col-12 my-2 text-center">
+      <div class="alert alert-danger">
+        <h1>Atención ❗❗</h1>
+        <h3 class="mt-2">
+          Está por borrar el libro
+          <strong class="text-dark">{{borrado[1]}}</strong>
+          <div class="d-block mt-4">
+            <a href="/view/{{borrado[0]}}" class="btn btn-danger me-2"
+              >Cancelar</a
+            >
+            <a href="/deleted/{{borrado[0]}}" class="btn btn-success ms-2"
+              >Confirmar</a
+            >
+          </div>
+        </h3>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% include 'dashboard/footer.html' %}

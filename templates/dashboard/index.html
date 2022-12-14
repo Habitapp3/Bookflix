@@ -3,6 +3,13 @@
 <div class="container">
   <div class="row">
     <div class="col-12">
+      {% with messages = get_flashed_messages() %} {% if messages %} {% for
+      message in messages %}
+      <script>
+        swal("Confirmación", "{{message}}", "success");
+      </script>
+      {% endfor %} {% endif %} {% endwith %}
+
       <div class="alert alert-dismissible alert-dark shadow-md">
         <button
           type="button"
@@ -19,6 +26,7 @@
           src="{{recomendado[6]}}"
           alt=""
           class="img-responsive"
+          style="box-shadow: 0px 0px 5px 1px #000"
           width="50"
           height="80"
         />
