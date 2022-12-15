@@ -10,6 +10,31 @@
       </script>
       {% endfor %} {% endif %} {% endwith %}
 
+      <div class="row">
+        <div class="col-md-6 offset-md-3 mb-4">
+          <form action="/search" id="buscador" method="POST">
+            <div class="input-group">
+              <input
+                type="text"
+                placeholder="Ingrese el título que desea buscar..."
+                name="q"
+                id="q"
+                class="form-control width-75"
+              />
+              <button type="submit" class="btn btn-success fs-5">Buscar</button>
+            </div>
+          </form>
+          <script>
+            let buscador = document.querySelector("#buscador");
+            let q = document.querySelector("#q");
+            buscador.addEventListener("submit", function (e) {
+              e.preventDefault();
+              location.href = "/search?q=" + q.value;
+            });
+          </script>
+        </div>
+      </div>
+
       <div class="alert alert-dismissible alert-dark shadow-md">
         <button
           type="button"

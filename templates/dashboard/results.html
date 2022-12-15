@@ -1,0 +1,92 @@
+{% include 'dashboard/header.html' %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Resultados</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+</div>
+
+{% if res|length %}
+
+<div class="container">
+  <div class="row">
+    {% if query != "" %}
+    <h1>
+      Usted ha buscado:
+      <span class="text-dark">"{{query}}"</span>
+    </h1>
+    {% else %}
+    <h1>Mostrando todos los resultados</h1>
+    {% endif %} {% else %}
+
+    <style>
+      #error {
+        height: 55vh;
+      }
+    </style>
+
+    <div id="error" class="container">
+      <div class="row">
+        <div class="col-12">
+          <h1>
+            No hay resultados para la búsqueda
+            <span class="text-dark">"{{query}}"</span>
+          </h1>
+
+          <a href="/">Ver otros libros</a>
+        </div>
+      </div>
+    </div>
+
+    {% endif %} {% for resultado in res %}
+
+    <div class="col-md-4 col-sm-6 my-2 d-flex justify-content-center">
+      <div class="card shadow" style="width: 18rem">
+        {% if resultado[4] == "Terror" %}
+        <span
+          class="badge bg-primary rounded-bottom position-absolute top-0 start-0 ms-1 mt-1"
+          >{{resultado[4]}}</span
+        >
+        {% endif %} {% if resultado[4] == "Fantasía" %}
+        <span
+          class="badge bg-info rounded-bottom position-absolute top-0 start-0 ms-1 mt-1"
+          >{{resultado[4]}}</span
+        >
+        {% endif %} {% if resultado[4] == "Drama" %}
+        <span
+          class="badge bg-danger rounded-bottom position-absolute top-0 start-0 ms-1 mt-1"
+          >{{resultado[4]}}</span
+        >
+        {% endif %} {% if resultado[4] == "Acción" %}
+        <span
+          class="badge bg-success rounded-bottom position-absolute top-0 start-0 ms-1 mt-1"
+          >{{resultado[4]}}</span
+        >
+        {% endif %}
+        <a href="/view/{{resultado[0]}}">
+          <img
+            src="{{resultado[6]}}"
+            class="card-img-top"
+            alt="{{resultado[1]}}"
+          />
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="fixed-bottom ms-1 mb-1">
+  <a href="{{url_for('create')}}" class="btn btn-light btn-sm fw-bold"
+    >Subir libro 📚</a
+  >
+</div>
+
+{% include 'dashboard/footer.html' %}

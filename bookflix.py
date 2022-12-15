@@ -41,16 +41,17 @@ def view(id): #se pasa el id como parametro de la funcion view, que es lo que se
     conn.commit()
     return render_template('dashboard/view.html', libro = libro)
 
-# POSIBLE ACTUALIZACIÓN... BUSCADOR
-# @app.route('/search/<str:q>')#le indicamos que la ruta SEARCH va a recibir un parametro de tipo String llamado "q"
-# def search(q):#recuperamos el parametro "q" y lo usamos dentro de la funcion
-#     conn = mysql.connect()
-#     cursor = conn.cursor()
-#     cursor.execute("SELECT * FROM `cac_bookflix`.`libros` WHERE titulo LIKE(%s)", (q))
-#     res = cursor.fetchall()
-#     conn.commit()
-#     return render_template('dashboard/results.html', res = res, query = q)#le enviamos al "results.html" el resultado de la búsqueda (res) y lo que
-#     #el usuario busco como (query)
+# BUSCADOR
+@app.route('/search')#le indicamos que la ruta SEARCH va a recibir un parametro de tipo String llamado "q"
+def search():#recuperamos el parametro "q" y lo usamos dentro de la funcion
+    q = request.args.get('q')
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM `cac_bookflix`.`libros` WHERE titulo LIKE %s", ('%' + q + '%'))
+    res = cursor.fetchall()
+    conn.commit()
+    return render_template('dashboard/results.html', res = res, query = q)#le enviamos al "results.html" el resultado de la búsqueda (res) y lo que
+    #el usuario busco como (query)
 
 # CREACIÓN DE REGISTRO
 @app.route('/create') 
