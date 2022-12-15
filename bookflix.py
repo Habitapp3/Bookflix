@@ -41,6 +41,7 @@ def view(id): #se pasa el id como parametro de la funcion view, que es lo que se
     conn.commit()
     return render_template('dashboard/view.html', libro = libro)
 
+# POSIBLE ACTUALIZACIÓN... BUSCADOR
 # @app.route('/search/<str:q>')#le indicamos que la ruta SEARCH va a recibir un parametro de tipo String llamado "q"
 # def search(q):#recuperamos el parametro "q" y lo usamos dentro de la funcion
 #     conn = mysql.connect()
@@ -125,6 +126,9 @@ def delete(id):
     cursor = conn.cursor()
     cursor.execute("DELETE FROM `cac_bookflix`.`libros` WHERE lid=%s", (id))#query directo que borra el registro con el lid(bbd) igual al id pasado como arg.
     conn.commit()
+    
+    flash('Libro borrado con éxito')
+    
     return redirect('/')#volvemos a la raiz..
 
 # EDITAR REGISTRO
@@ -177,7 +181,7 @@ def update():
         flash('El campo PDF debe ser un link válido')
 
     if len(errors) > 0:
-        return redirect(url_for(f'edit/{_lid}'))
+        return redirect('/edit/{}'.format(_lid))
     
     data = (_titulo,_descripcion,_fecha_publicacion,_categoria,_autor,_imagen,_pdf,_lid)
     
@@ -187,9 +191,11 @@ def update():
     cursor = conn.cursor()
     cursor.execute(sql, data)
     conn.commit()
+    
+    flash('Libro editado con éxito')
 
     return redirect('/')
 
 
-if __name__=='__main__':#NO SE QUE HACE ESTO.,...
+if __name__=='__main__':
     app.run(debug=True)
